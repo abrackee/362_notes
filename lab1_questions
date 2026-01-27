@@ -1,0 +1,24 @@
+1.
+
+direction - basicall if the gpio pin is set for input or output
+	If the output driver is enabled or not determines if it is set for output or input. 
+	1 = output, 0 = input 
+9.8 - pg. 597 
+
+3.1.11 - pg. 54 is a list of registers.
+	has the functions that change GPIO_OE_* that change the "direction" of the GPIO pin
+	
+2.
+
+
+from question 1 set OE to 0 to make the pins an input (GPIO_OE_CLR)
+
+since GP21 and GP26 are below 32 we used the low GPIO registers
+	GPIO_OE_CLR
+	(not the high one)
+
+so I think that mask is just a variable (represents a bit mask)
+
+1 << 21 means start with a binary number 1 and then shift 21 times. Thus making a binary 21. 
+mask = (1 << 21) | (1 <<26);
+
