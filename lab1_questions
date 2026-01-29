@@ -1,0 +1,77 @@
+1.
+
+direction - basicall if the gpio pin is set for input or output
+	If the output driver is enabled or not determines if it is set for output or input. 
+	1 = output, 0 = input 
+9.8 - pg. 597 
+
+3.1.11 - pg. 54 is a list of registers.
+	has the functions that change GPIO_OE_* that change the "direction" of the GPIO pin
+	
+2.
+
+from question 1 set OE to 0 to make the pins an input (GPIO_OE_CLR)
+
+since GP21 and GP26 are below 32 we used the low GPIO registers
+	GPIO_OE_CLR
+	(not the high one)
+
+so I think that mask is just a variable (represents a bit mask)
+
+1 << 21 means start with a binary number 1 and then shift 21 times. Thus making a binary 21. 
+mask = (1 << 21) | (1 <<26);
+
+3.
+
+
+section 9.8 pg. 597
+section 3.3.11 -- this list of SIO registers
+
+To check direction we must read the GPIO_OE value. 
+
+GPIO_OE_SET
+AND
+GPIO_OE_CLR
+are write only. They only store bits they don't write them 
+
+We check the GPIO_OE (pins 0-31) AND GPIO_HI_OE (pins 32-47)
+
+to check make a variable that is true for the register you want to check. 
+Then make another that is set to the gpio output from the sio hardware register.
+Use boolean expression to compare them
+
+gpio_values = sio_hw->gpio_oe
+test_register = 1 << 21
+is_output = gpio_values != 0;
+is_input = gpio_values != 1;
+//have to use != because c will return true for any non value while == will compare the entire number I think. 
+
+4.
+
+So the "value" is the actually logic value (voltage) of the pin
+
+gpio_out_set
+gpio_out_clr
+gpio_hi_out_set
+gpio_hi_out_clr
+
+gpio_out_set / gpio_out_clr will set the out value of gpio register pins 0 - 31 to logic high or low.
+
+sio_hw->gpio_out_set = (1 << 21);
+//will set gpio pin 21 to output high
+
+5.
+
+gpio_in
+gpio_hi_in
+
+these read what logic level is being input at the pin while the out is the logic level being output by the pin. 
+
+in 3.1.11 it states that these allow the processor to sample the current state of the gpio's
+
+6.
+
+
+
+
+
