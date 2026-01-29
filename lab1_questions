@@ -71,6 +71,56 @@ in 3.1.11 it states that these allow the processor to sample the current state o
 
 6.
 
+a)
+This line in the gpio_set_function controls enable/disable of the gpio pin:
+
+    // Set input enable on, output disable off
+    hw_write_masked(&pads_bank0_hw->io[gpio],
+                   PADS_BANK0_GPIO0_IE_BITS,
+                   PADS_BANK0_GPIO0_IE_BITS | PADS_BANK0_GPIO0_OD_BITS
+    );
+
+hw_write_masked function is section 5.1.2.3.3 in the SDK
+&pads_bank0_hw->io[gpio] -- address of the register we are writing.
+PADS_BANK0_GPIO0_IE_BITS -- The new value we want in the register
+PADS_BANK0_GPIO0_IE_BITS | PADS_BANK0_GPIO0_OD_BITS -- the bits that we are allowed to change 
+
+9.11.3 has the PADS_BANK_* stuff included
+PADS_BANK0_GPIO0_IE_BITS/PADS_BANK0_GPIO0_OD_BITS -- these are the bit value for the input enable and ouput disable 
+
+b)
+
+pg. 155 in SDK
+Says to allocate function using gpio_set_function
+void gpio_set_function (uint gpio, gpio_function_t fn)
+gpio = gpio pin number
+fn = function to set to
+function 5 for sio (in datasheet 9.4)
+
+c)
+
+//Remove pad isolation now that the correct peripheral is in control of the pad
+hw_clear_bits(&pads_bank0_hw->io[gpio], PADS_BANK0_GPIO0_ISO_BITS);
+
+clears PADS_BANK0_GPIO0_ISO_BITS these bits in &pads_bank0_hw->io[gpio] this register
+
+hw_clear_bits can be found in SDK 5.1.2.2
+
+7.
+
+The pad is the boundary between the outside world and the chip’s internal logic. Has a bunch of things for interaction with the gpio pin
+
+Normally the latch is "transparent" meaning it doesnt do anything
+
+but when the iso bit for the pad is set the pad is isolated so it does not get power from the switched core domain.
+Basically it can't do anything. This is important because sometimes you can get errors durring power transitions or resets
+
+
+
+
+
+
+
 
 
 
