@@ -1,0 +1,59 @@
+Lab 2:
+
+3.2)
+1.
+IO_IRQ_BANK0_NS
+IRQ 22 in table 95 in datasheet (3.2)
+_S is secure
+_NS is non-secure
+
+2. 
+3.2.0 2nd to last paragraph: 
+
+pre-emption is possible if the new interrupt is of higher priority. 
+Once finished with the higher priority interrupt. Will return back to the other one it was working on. 
+
+"he pre-emption priority order is determined by the
+interrupt priority registers starting from NVIC_IPR0 (Cortex-M33) or the MEIPRA interrupt priority array CSR (Hazard3)."
+
+3.
+first things in 9.5:
+Classic high/low/high edge/low edge.
+
+4.
+This would be rising edge
+Stored in INTR register under gpio interrupts
+how can you actually call that in software?
+
+5.
+Level High
+asserted as long as the gpio pin is at logic level 1
+
+6.
+It says the INTR register. 
+
+7.
+FIFO stands for first in first out. This is also called a queue.
+
+8.
+The FIFO is a 32 bit value. So it does not store a char but a full value. Every time you push or pull you are pushing or pulling a full 32 bit value. So realistically it can only store 1 char with each push and pull. And you will have 24 un-used bits.
+
+9.
+
+The function:
+void xosc_dormant(void) {
+    // WARNING: This stops the xosc until woken up by an irq
+    xosc_hw->dormant = XOSC_DORMANT_VALUE_DORMANT;
+    // Wait for it to become stable once woken up
+    while(!(xosc_hw->status & XOSC_STATUS_STABLE_BITS)) {
+        tight_loop_contents();
+    }
+}
+
+writes this to the dormant register:
+#define XOSC_DORMANT_VALUE_DORMANT _u(0x636f6d61)
+
+10.
+2nd to last paragraph of 6.5.3.1:
+IO_BANK0_DORMANT_WAKE_INTE0
+The zero is the pin number
