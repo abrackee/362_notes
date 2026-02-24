@@ -1,0 +1,61 @@
+Lab 4
+
+1. 
+
+12.4.3 right bellow the diagram
+
+500 ksamples / second, 48 MHz
+
+2. 
+
+12.4.2.1
+
+9 total
+8 gpio
+1 temperature sensor
+
+3.
+
+12.4.3.1
+
+"To select and ADC input, write to the CD.AINSEL"
+write 1 to CD.START_ONCE to start a conversion
+The 12 bit conversion is available in RESULT
+
+4. 
+
+12.4.7
+Table 1121
+
+READY
+"1 if the ADC is ready to start a new conversion. Implies any previous conversion has completed"
+
+5.
+
+12.3.7
+Table 1122
+
+12 bits wide
+2^12 = 4096
+
+6.
+
+READ_ADDR, WRITE_ADDR, TANS_COUNT, CTRL
+"To directly instruct the DMA channel to perform a data transfer, software writes to these four registers"
+"All four are live registers; they update their status continuously as the channel prograsses."
+
+7.
+
+The following events can
+trigger a channel:
+• A write to a channel trigger register.
+• Completion of another channel whose CHAIN_TO points to this channel.
+• A write to the MULTI_CHAN_TRIGGER register (can trigger multiple channels at once)
+
+
+8.
+
+DREQ table
+
+48
+

@@ -1,0 +1,59 @@
+lab 5
+
+1. 
+
+12.5.1 2nd paragraph
+
+12 pwm slices with 2 channels
+
+so 24
+
+so you don't have enough to do a pwm per gpio pin
+
+2.
+
+12.5.2.1
+
+"The counting period is controlled by the TOP register, with a maximum possible period of 65536 cycles, as the counter
+and TOP are 16 bits in size. Use the CC register to configure input values"
+
+3.
+
+12.5.3 register table
+
+CHx_CTR 
+
+I think it is implied the thing that it is counting is the current
+
+4.
+
+12.5.3 register table
+
+CHx_CC
+
+5.
+
+so TOP sets the counting period (the wrap value)
+CC sets when the signal toggles
+
+I could set CC to half of what top is then it would toggle half way through the period
+
+6. 
+
+12.5.2.1
+
+65536 is the max possible counting period
+
+7.
+
+12.5.2.3
+
+"There is no limitation on what values can be written to CC or TOP, or when they are written." 
+yes you could but its probably a bad idea
+
+
+
+
+
+
+
