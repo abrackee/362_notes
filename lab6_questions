@@ -1,0 +1,41 @@
+lab 6
+
+1.
+
+Beginning of 12.3
+sck, tx, rx, csn
+probable wont use rx since it is a data input and we arent inputing anything. 
+
+2.
+
+
+It can communicate with multiple peripheral devices on the same bus
+But each device must have its own CSn line
+
+3.
+
+12.3.4.6.1
+62.5 MHz is max for SSPCLKOUT
+
+4.
+
+sdk 5.1.25.7.5
+spi_init(spi number, baudrate in hx)
+
+5.
+
+sdk 5.1.25.7.12
+spi_set_format(spi number, data bits, clk polarity, clk phase, order)
+
+6.
+
+sdk 5.1.25.7.14
+spi_write16_blocking(spi number, buffer of data to wires, length of the buffer)
+
+
+
+
+
+
+
+
