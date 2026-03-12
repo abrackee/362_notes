@@ -1,0 +1,32 @@
+lab 7
+
+1.
+
+sdk 5.1.30.5.5
+Returns gpio_function_t needed to select the UART function for the given UART instance on the given GPIO number.
+
+2.
+
+Found by diving into the function
+for gp0, gp1 GPIO_FUNC_UART
+for gp2, gp3, GPIO_FUNC_UART
+
+3.
+
+12.1.3.2.
+UARTLCR_H
+
+4.
+
+from 8.1.3.1
+clk_peri has a frequency that is the same as clk_sys which by default is 150 MHz
+
+sdk 12.1.3.2.1
+BDR = 15M / (16*115200) = 81.3802
+= 81 + 0.3802
+m = integer(0.3802 * 2^6 + 0.5)
+  = 24
+
+UARTIBRD = 0x51
+UARTFBRD = 0x18
+
